@@ -1,0 +1,10 @@
+{
+    "produtos": {
+      "1": { "nome": "Tênis Nike", "preco": 299.99, "estoque": 10 },
+      "2": { "nome": "Camiseta Adidas", "preco": 89.99, "estoque": 15 },
+      "3": { "nome": "Boné Puma", "preco": 59.99, "estoque": 20 }
+    }
+  }
+  
+
+

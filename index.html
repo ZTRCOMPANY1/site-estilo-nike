@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Online</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Minha Loja</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
+                <li><a href="localizacao.html">Localização</a></li>
+            </ul>
+        </nav>
+        <button onclick="abrirCarrinho()">🛒 Carrinho (<span id="cart-count">0</span>)</button>
+    </header>
+
+    <section id="produtos">
+        <!-- Os produtos serão carregados aqui -->
+    </section>
+
+    <div id="carrinho" class="hidden">
+        <h2>Carrinho de Compras</h2>
+        <ul id="lista-carrinho"></ul>
+        <p>Total: R$ <span id="total">0.00</span></p>
+        <button onclick="finalizarCompra()">Finalizar Compra</button>
+        <button onclick="fecharCarrinho()">Fechar</button>
+    </div>
+    
+
+
+
+
+
+
+
+    <script src="script.js"></script>
+    
+</body>
+</html>
