@@ -3,21 +3,25 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const produtos = [
-    { id: 1, nome: "Tênis Nike", preco: 1, estoque: 10, imagem: "imagens/3.jpeg" },
-    { id: 2, nome: "Camiseta Adidas", preco: 1, estoque: 15, imagem: "imagens/2.jpeg" },
-    { id: 3, nome: "Boné Puma", preco: 10, estoque: 20, imagem: "imagens/3.jpeg" }
+    { id: 1, nome: "Tênis Nike", preco: 200, estoque: 10, imagem: "imagens/3.jpeg", categoria: "tenis" },
+    { id: 2, nome: "Camiseta Adidas", preco: 80, estoque: 15, imagem: "imagens/2.jpeg", categoria: "camiseta" },
+    { id: 3, nome: "Boné Puma", preco: 50, estoque: 20, imagem: "imagens/3.jpeg", categoria: "bone" },
+    { id: 4, nome: "Tênis Adidas", preco: 250, estoque: 5, imagem: "imagens/2.jpeg", categoria: "tenis" },
+    { id: 5, nome: "Camiseta Nike", preco: 90, estoque: 8, imagem: "imagens/1.jpeg", categoria: "camiseta" }
 ];
 
 const carrinho = [];
 
-function carregarProdutos() {
+function carregarProdutos(produtosFiltrados = produtos) {
     const container = document.getElementById("produtos");
-    produtos.forEach(produto => {
+    container.innerHTML = ""; // Limpa os produtos antes de recarregar
+
+    produtosFiltrados.forEach(produto => {
         const item = document.createElement("div");
         item.classList.add("produto");
-        
+
         let tamanhoHTML = '';
-        if (produto.id === 2) {  // Camisetas
+        if (produto.categoria === "camiseta") { 
             tamanhoHTML = `
                 <label for="tamanho-${produto.id}">Tamanho:</label>
                 <select id="tamanho-${produto.id}">
@@ -26,7 +30,7 @@ function carregarProdutos() {
                     <option value="G">G</option>
                 </select>
             `;
-        } else if (produto.id === 1) {  // Tênis
+        } else if (produto.categoria === "tenis") { 
             tamanhoHTML = `
                 <label for="tamanho-${produto.id}">Tamanho:</label>
                 <select id="tamanho-${produto.id}">
@@ -37,17 +41,6 @@ function carregarProdutos() {
                 </select>
             `;
         }
-         else if (produto.id === 3) {  // Bone
-        tamanhoHTML = `
-            <label for="tamanho-${produto.id}">Tamanho:</label>
-            <select id="tamanho-${produto.id}">
-                <option value="38">38</option>
-                <option value="39">39</option>
-                <option value="40">40</option>
-                <option value="41">41</option>
-            </select>
-        `;
-    }
 
         item.innerHTML = `
             <img src="${produto.imagem}" alt="${produto.nome}" class="produto-imagem">
@@ -60,6 +53,7 @@ function carregarProdutos() {
         container.appendChild(item);
     });
 }
+
 
 
 
@@ -123,12 +117,15 @@ function removerDoCarrinho(index) {
 }
 
 function abrirCarrinho() {
-    document.getElementById("carrinho").classList.remove("hidden");
+    document.querySelector(".overlay").classList.add("mostrar");
+    document.querySelector(".carrinho").classList.add("mostrar");
 }
 
 function fecharCarrinho() {
-    document.getElementById("carrinho").classList.add("hidden");
+    document.querySelector(".overlay").classList.remove("mostrar");
+    document.querySelector(".carrinho").classList.remove("mostrar");
 }
+
 
 function finalizarCompra() {
     if (carrinho.length === 0) {
@@ -149,4 +146,26 @@ function finalizarCompra() {
     const url = `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
     
     window.location.href = url;
+}
+
+
+function filtrarProdutos() {
+    const categoriaSelecionada = document.getElementById("categoria").value;
+    const ordemPreco = document.getElementById("preco").value;
+
+    let produtosFiltrados = produtos;
+
+    // Filtrar por categoria
+    if (categoriaSelecionada !== "todos") {
+        produtosFiltrados = produtosFiltrados.filter(produto => produto.categoria === categoriaSelecionada);
+    }
+
+    // Ordenar por preço
+    if (ordemPreco === "mais-barato") {
+        produtosFiltrados.sort((a, b) => a.preco - b.preco);
+    } else if (ordemPreco === "mais-caro") {
+        produtosFiltrados.sort((a, b) => b.preco - a.preco);
+    }
+
+    carregarProdutos(produtosFiltrados); // Atualiza a exibição com os produtos filtrados
 }

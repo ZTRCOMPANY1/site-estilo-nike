@@ -13,23 +13,46 @@
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
                 <li><a href="contato.html">Contato</a></li>
                 <li><a href="localizacao.html">Localização</a></li>
             </ul>
+
         </nav>
         <button onclick="abrirCarrinho()">🛒 Carrinho (<span id="cart-count">0</span>)</button>
+
+        
     </header>
+    
+    <div id="loja">
+        <div id="filtros">
+            <h3>Filtrar Produtos</h3>
+            <label for="categoria">Categoria:</label>
+            <select id="categoria" onchange="filtrarProdutos()">
+                <option value="todos">Todos</option>
+                <option value="tenis">Tênis</option>
+                <option value="camiseta">Camiseta</option>
+                <option value="bone">Boné</option>
+            </select>
+    
+            <label for="preco">Ordenar por:</label>
+            <select id="preco" onchange="filtrarProdutos()">
+                <option value="nenhum">Padrão</option>
+                <option value="mais-barato">Mais barato</option>
+                <option value="mais-caro">Mais caro</option>
+            </select>
+        </div>
 
     <section id="produtos">
         <!-- Os produtos serão carregados aqui -->
     </section>
+    <div class="overlay" onclick="fecharCarrinho()"></div>
 
-    <div id="carrinho" class="hidden">
+    <div id="carrinho" class="carrinho">
         <h2>Carrinho de Compras</h2>
         <ul id="lista-carrinho"></ul>
         <p>Total: R$ <span id="total">0.00</span></p>
         <button onclick="finalizarCompra()">Finalizar Compra</button>
+        <a>ﾠ</a>
         <button onclick="fecharCarrinho()">Fechar</button>
     </div>
     
